@@ -9,20 +9,24 @@
         try {
             $conn = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
             // set the PDO error mode to exception
-            // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully";
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo "Connected successfully\n";
 
             // Get the data from the http POST.
             $json_post = file_get_contents('php://input');
             $json_obj = json_decode($json_post);
 
-            if(!($json_obj->Title && $json_obj->Message && $json_obj->APIKey)) {
-                echo 'The post was not in the proper format.';
+            if(!($json_obj->APIKey)) {
+                echo 'The post was not in the proper format.\n';
             } else {
-                $sql = 'INSERT INTO Post(Title, Message, Date, PostedBy)
-                        VALUES("'.$json_obj->Title.'", "'.$json_obj->Message.'",CURDATE(),
-                                "'.$json_obj->APIKey.'");';
-                $conn->exec($sql);
+                $stmt = $conn->prepare("SELECT * FROM Post WHERE PostedBy = \"$json_obj->APIKey\"");
+                $stmt->execute();
+                
+                // set the resulting array to associative
+                $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                foreach($stmt->fetchAll() as $v) {
+                    echo $v->Message;
+                }
             }
         }
         catch(PDOException $e) {
