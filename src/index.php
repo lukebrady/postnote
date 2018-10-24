@@ -1,16 +1,26 @@
 <?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Get the data from the http POST.
-        $json_post = file_get_contents('php://input');
-        $json_obj = json_decode($json_post);
+// Grabs the URI and breaks it apart in case we have querystring stuff
+$request_uri = explode('?', $_SERVER['REQUEST_URI'], 2);
 
-        if(!($json_obj->Title && $json_obj->Message)) {
-            echo 'The post was not in the proper format.';
-        } else {
-            echo 'Title: '.$json_obj->Title.' Message: '.$json_obj->Message;
-        }
-    } else {
-        echo 'Thanks';
-    }
-?>
+// Route it up!
+switch ($request_uri[0]) {
+    // Home page
+    case '/':
+        require './welcome.php';
+        break;
+    // Home page
+    case '/post':
+        require './src/post.php';
+        break;
+    // About page
+    case '/api':
+        require './api.php';
+        break;
+    // Everything else
+    default:
+        header('HTTP/1.0 404 Not Found');
+        require './404.php';
+        break;
+}
+
 
