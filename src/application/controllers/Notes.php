@@ -1,4 +1,5 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
     class Notes extends CI_Controller {
         function __construct() {
 		    parent::__construct();
@@ -16,10 +17,17 @@
                 } else {
                     // Now query the database using the APIKey in the POST request.
                     $result = $this->Note_Model->get_user_notes($json_obj->APIKey);
-                    
+                    $jarr = array();
                     foreach($result as $note) {
-                        echo "$note->Title    $note->Message    $note->Date\n";
+                        // Convert request values into JSON to be returned.
+                        $json_result = array(
+                            "Title" => $note->Title,
+                            "Message" => $note->Message,
+                            "Date" => $note->Date
+                        );
+                        array_push($jarr, $json_result);
                     }
+                    echo json_encode($jarr)."\n";
                 }
             } else {
                 echo "/Notes is where you can POST and retrieve your notes.\n";

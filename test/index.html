@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang = "en">
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <table id = "note-table">
+    </table>
+    <!--- The script that POST's to postnote. -->
+    <script>
+        function getNotes(apiKey) {
+            var xhttp = new XMLHttpRequest();
+            var noteTable = document.getElementById("note-table");
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var jsonData = JSON.parse(this.responseText);
+                    jsonData.forEach(function(obj) {
+                        noteTable.innerHTML += "<tr><td>"+ obj.Title + "</td></tr>"
+                                                                        +  "<tr><td>"+ obj.Message + "</td></tr>"
+                    }, this);
+                }
+            };
+            xhttp.open("POST", "http://localhost:8081/index.php/Notes", true);
+            xhttp.send(JSON.stringify({"APIKey" : apiKey}));
+        }
+        getNotes("a034a4513c8196bc0a38af7b051042957a1fedcca62abf7af2");
+    </script>
+</body>
+</html>
