@@ -17,7 +17,7 @@
                     $post = array (
                         'Title' => $json_obj->Title,
                         'Message' => $json_obj->Message,
-                        'Date' => date('Y-m-d'),
+                        'Date' => date('Y-m-d h:i:sa'),
                         'PostedBy' => $json_obj->APIKey
                     );
                     // Now insert the POST data into the database.
