@@ -15,6 +15,14 @@
     background-color: #2A2A2A;
 }
 
+#footer-section {
+    background-color: #2A2A2A;
+    color: white;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+}
+
 #opening {
     padding-bottom: 50px;
 }
@@ -25,7 +33,7 @@
   display: inline-block;
   margin: 1rem;
   position: relative;
-  width: 750px;
+  width: 75%;
     padding: 1rem 1rem 1rem 1rem;
 }
 
