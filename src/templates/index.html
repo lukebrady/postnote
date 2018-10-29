@@ -7,11 +7,64 @@
     <link rel="stylesheet" href="../static/style/main.css">
 </head>
 <body>
+
     <!--- Header section -->
     <section id = "header">
-        <div class = "jumbotron" id = "header-jumbotron">
-            <h1>Postnote</h1>
-            <p><i>POST messages to all of your sites using REST and JSON.</i></p>
+        <div class = "container-fluid" id = "header-container">
+            <div class = "row">
+                <a href="https://github.com/lukebrains/postnote"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
+                <div class = "col-md-12">
+                    <h1 id = "header-text">
+                        <a href="/">
+                        Postnote
+                        </a>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--- Information section -->
+    <section id = "information-section">
+        <div class = "container">
+            <div class = "row" id = "opening">
+                <div class ="col-md-12" align = "center">
+                    <h1>An API for your thoughts.</h1>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-md-12" align="center">
+                    <div class = "card card-2">
+                        <p>Easily POST messages to Postnote using curl.</p>
+                        <pre><code class = "language-bash">curl -XPOST https://postnote.io/user/post -H "Content-Type: text/json" -d '{"Title":"Hello", "Message": "Hello, World!"}'
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-md-12" align = "center">
+                    <div class = "card card-2">
+                        <p style = "text-align: center">Now render the posts on your site using AJAX.</p>
+                        <pre style="text-align: left"><code class = "language-javascript">
+    function getNotes(apiKey) {
+        var xhttp = new XMLHttpRequest();
+        var noteTable = document.getElementById("note-table");
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var jsonData = JSON.parse(this.responseText);
+                jsonData.forEach(function(obj) {
+                }, this);
+            }
+        };
+        xhttp.open("POST", "https://postnote.io/user/notes", true);
+        xhttp.send(JSON.stringify({"APIKey" : apiKey}));
+    }
+    // Now call the function with your API key.
+    getNotes("a034a4513c8196bc0a38af7b051042957a1fedcca62abf7af2");
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
