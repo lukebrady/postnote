@@ -20,6 +20,10 @@ html body {
     background-color: #2A2A2A;
 }
 
+.info {
+    color: dodgerblue;
+}
+
 #footer-section {
     background-color: #2A2A2A;
     color: white;
