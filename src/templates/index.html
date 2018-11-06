@@ -3,79 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Postnote - POST messages to all of your sites using REST and JSON.</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../static/style/main.css">
 </head>
 <body>
 
-    <!--- Header section -->
-    <section id = "header">
-        <div class = "container-fluid" id = "header-container">
-            <div class = "row">
-                <a href="https://github.com/lukebrains/postnote"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
-                <div class = "col-md-12">
-                    <h1 id = "header-text">
-                        <a href="/">Postnote</a>
-                    </h1>
+<!--- Header section -->
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">PostNote</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span
+                    class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Page 1-1</a></li>
+                    <li><a href="#">Page 1-2</a></li>
+                    <li><a href="#">Page 1-3</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Page 2</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<!--- Information section -->
+<section id="information-section">
+    <div class="container">
+        <div class="row" id="opening">
+            <div class="col-md-12" align="center">
+                <h1>An API for your thoughts.</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <div class="card card-2">
+                    <p>Easily POST messages to Postnote using curl.</p>
+                    <pre><code class="language-bash">curl -XPOST https://postnote.io/user/post -H "Content-Type: text/json" -d '{"Title":"Hello", "Message": "Hello, World!"}'
+                        </code></pre>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!--- Information section -->
-    <section id = "information-section">
-        <div class = "container">
-            <div class = "row" id = "opening">
-                <div class ="col-md-12" align = "center">
-                    <h1>An API for your thoughts.</h1>
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "col-md-12" align="center">
-                    <div class = "card card-2">
-                        <p>Easily POST messages to Postnote using curl.</p>
-                        <pre><code class = "language-bash">curl -XPOST https://postnote.io/user/post -H "Content-Type: text/json" -d '{"Title":"Hello", "Message": "Hello, World!"}'
-                        </code></pre>
-                    </div>
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "col-md-12" align = "center">
-                    <div class = "card card-2">
-                        <p style = "text-align: center">Now render the posts on your site using AJAX.</p>
-                        <pre style="text-align: left"><code class = "language-javascript">
-            // Declare a function that will take your API key.
-            function getNotes(apiKey) {
-                var xhttp = new XMLHttpRequest();
-                var noteTable = document.getElementById("note-table");
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        var jsonData = JSON.parse(this.responseText);
-                        jsonData.forEach(function(obj) {
-                        }, this);
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <div class="card card-2">
+                    <p style="text-align: center">Now render the posts on your site using AJAX.</p>
+                    <pre style="text-align: left"><code class="language-javascript">
+                    // Declare a function that will take your API key.
+                    function getNotes(apiKey) {
+                        var xhttp = new XMLHttpRequest();
+                        var noteTable = document.getElementById("note-table");
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                var jsonData = JSON.parse(this.responseText);
+                                jsonData.forEach(function(obj) {
+                                }, this);
+                            }
+                        };
+                        xhttp.open("POST", "https://postnote.io/user/notes", true);
+                        xhttp.send(JSON.stringify({"APIKey" : apiKey}));
                     }
-                };
-                xhttp.open("POST", "https://postnote.io/user/notes", true);
-                xhttp.send(JSON.stringify({"APIKey" : apiKey}));
-            }
-            // Now call the function with your API key.
-            getNotes("a034a4513c8196bc0a38af7b051042957a1fedcca62abf7af2");
+                    // Now call the function with your API key.
+                    getNotes("a034a4513c8196bc0a38af7b051042957a1fedcca62abf7af2");
                         </code></pre>
-                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id = "footer-section">
-        <div class = "footer">
-            <p>Created By: <a href = "https://www.lukebrains.com/">Luke Brady</a></p>
-        </div>
-    </section>
+<section id="footer-section">
+    <div class="footer">
+        <p>Created By: <a href="https://www.lukebrains.com/">Luke Brady</a></p>
+    </div>
+</section>
 
-<!--- Bootstrap Javascript -->
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </body>
 </html>
