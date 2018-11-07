@@ -44,9 +44,12 @@ class PostnoteDB:
         # Create the cursor from the database object.
         cursor = self.db.cursor()
         # Create the SQL statement that will run against the Postnote database.
-        sql = 'SELECT * FROM Notes WHERE Username = "{0}"'.format(username)
+        sql = 'SELECT Title, Message FROM Notes WHERE Username = "{0}"'.format(username)
         # Now try to find the notes in the db.
-        cursor.execute(sql)
+        try:
+            cursor.execute(sql)
+        except conn.Error:
+            return 1
         # If the query was successful, fetch all results.
         result = cursor.fetchall()
         # Close the connection then return the results.

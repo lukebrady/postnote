@@ -25,21 +25,23 @@
     </table>
     <!--- The script that POST's to postnote. -->
     <script>
-        function getNotes(apiKey) {
+        function getNotes() {
             var xhttp = new XMLHttpRequest();
             var noteTable = document.getElementById("note-table");
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     var jsonData = JSON.parse(this.responseText);
                     jsonData.forEach(function(obj) {
-                        noteTable.innerHTML += "<tr><td><div class = 'card card-1'>"+ obj.Title + "</br></br> " +obj.Message + "</div></td></tr>"
+                        // Render your notes to the site how you see fit!
                     }, this);
                 }
             };
-            xhttp.open("POST", "http://localhost:8081/index.php/Notes", true);
-            xhttp.send(JSON.stringify({"APIKey" : apiKey}));
+            // Replace <user> with your username.
+            xhttp.open("GET", "http://localhost:8097/notes/lukebrains", true);
+            xhttp.send();
         }
-        getNotes("a034a4513c8196bc0a38af7b051042957a1fedcca62abf7af2");
+        // Now call getNotes function.
+        getNotes();
     </script>
 </body>
 </html>
