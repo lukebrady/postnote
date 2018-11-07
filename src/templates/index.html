@@ -63,7 +63,8 @@
                                 }, this);
                             }
                         };
-                        xhttp.open("GET", "https://postnote.io/user/notes", true);
+                        // Replace <user> with your username.
+                        xhttp.open("GET", "https://postnote.io/<user>/notes", true);
                         xhttp.send();
                     }
                     // Now call getNotes function.
