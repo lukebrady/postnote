@@ -18,7 +18,15 @@ def login():
     if 'email' in session:
         return redirect('/dashboard')
     else:
-        return redirect('/')
+        return render_template('login.html')
+
+# Signup for the Postnote service.
+@app.route('/signup', methods=['GET'])
+def signup():
+    if 'email' in session:
+        return redirect('/dashboard')
+    else:
+        return render_template('signup.html')
 
 # Post message route.
 @app.route('/<user>/post', methods=['GET', 'POST'])
