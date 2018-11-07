@@ -21,5 +21,6 @@ CREATE TABLE Note
   Message LONGTEXT NOT NULL,
   Username VARCHAR(50) NOT NULL,
   NoteType INT NOT NULL,
+  LastUpdate DATE NOT NULL,
   PRIMARY KEY (NoteID)
 );

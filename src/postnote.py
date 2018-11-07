@@ -38,6 +38,14 @@ def post(user):
     if request.method == 'POST':
         # Get the JSON from the request.
         req_json = request.json
+        print(req_json)
+        # Check to see if the request included a title and message.
+        if req_json['Title'] and req_json['Message']:
+            result = conn.post_note(req_json['Title'], req_json['Message'])
+            if result != 1:
+                return 'Successfully posted {}.'.format(req_json['Title'])
+            else:
+                return 'There was an issue posting {}.'.format(req_json['Title'])
 
     if 'username' in session:
         return render_template('welcome')
