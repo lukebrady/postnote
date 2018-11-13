@@ -24,10 +24,11 @@ class PostnoteDB:
         # Check to see if the password has been filled in, if so hash the given password.
         if password != None:
             passhash = hashlib.sha256(bytes(password, encoding='utf-8')).hexdigest()
+            print(passhash)
         else:
             return 1
         # Check to see if any of the fields do not match the database parameters.
-        if len(username) > 50 or len(email) > 256:
+        if username != None and email != None:
             # Create the statement that will be used to create the new user.
             sql = 'INSERT INTO User (Username, Email, Password, UserType)' \
                   'VALUES ("{0}", "{1}", "{2}", "{3}")'.format(username, passhash, email, user_type)

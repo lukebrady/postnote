@@ -5,6 +5,7 @@ from pndb import PostnoteDB
 
 # Create the flask application object.
 app = flask.Flask(__name__)
+app.secret_key = 'jsjdkwe023ksd05mdf9923'
 # These settings should be changed when hosting your own instance of Postnote.
 # Also, this is a local database and similar settings should not be used in production.
 conn = PostnoteDB(host='192.168.33.40', user='root',passwd='rootpassword1234', database='Postnote')
