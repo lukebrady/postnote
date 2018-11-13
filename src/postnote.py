@@ -48,9 +48,19 @@ def signup_form():
         if result != 1:
             session['username'] = username
             print('Created new user.')
+            return redirect('/dashboard')
         else:
             print('Could not create new user.')
         return redirect('/')
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.pop('username')
+    return redirect('/')
+
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+    return render_template('dashboard.html', username = session['username'])
 
 # Post message route.
 @app.route('/post/<user>', methods=['GET', 'POST'])
