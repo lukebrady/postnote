@@ -23,7 +23,7 @@ class PostnoteDB:
         cursor = self.db.cursor()
         # Check to see if the password has been filled in, if so hash the given password.
         if password != None:
-            passhash = hashlib.sha256(password).hexdigest()
+            passhash = hashlib.sha256(bytes(password, encoding='utf-8')).hexdigest()
         else:
             return 1
         # Check to see if any of the fields do not match the database parameters.
@@ -46,7 +46,7 @@ class PostnoteDB:
         cursor = self.db.cursor()
         # Check to see if the password was provided.
         if password != None:
-            passhash = hashlib.sha256(password).hexdigest()
+            passhash = hashlib.sha256(bytes(password), 'utf-8').hexdigest()
         else:
             return 1
         # Now create the SQL statement that will retrieve the user information.

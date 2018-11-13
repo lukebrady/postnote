@@ -59,6 +59,10 @@ html body {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-#signup-panel #login-panel{
+#signup-panel {
+    width: 50%;
+}
+
+#login-panel {
     width: 50%;
 }

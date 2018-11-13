@@ -31,6 +31,26 @@ def signup():
     else:
         return render_template('signup.html')
 
+# Signup form path. This is the URL that Postnote forms will submit login information.
+@app.route('/signup/form', methods=['POST'])
+def signup_form():
+    if 'username' in session:
+        return redirect('/dashboard')
+    else:
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+
+        print(request.form)
+        # Now create the new user.
+        result = conn.create_new_user(username=username, password=password, email=email)
+        if result != 1:
+            session['username'] = username
+            print('Created new user.')
+        else:
+            print('Could not create new user.')
+        return redirect('/')
+
 # Post message route.
 @app.route('/post/<user>', methods=['GET', 'POST'])
 @cross_origin()
