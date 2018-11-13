@@ -35,7 +35,11 @@ html body {
 #opening {
     padding-bottom: 50px;
 }
-
+.navbar {
+    background: #2A2A2A;
+    box-shadow: none;
+    text-decoration: none;
+}
 .card {
   background: #fff;
   border-radius: 2px;
